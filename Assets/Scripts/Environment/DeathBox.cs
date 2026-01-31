@@ -11,7 +11,7 @@ public class DeathBox : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
          
-        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("NPC"))
+        if (other.gameObject.CompareTag("Mask") || other.gameObject.CompareTag("NPC"))
         {
             Debug.Log(other.gameObject.name + " has died.");
             Destroy(other.gameObject);
