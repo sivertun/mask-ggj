@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5978354528582364841, guid: 7bb476e084c17cda39ddb1e77686c20b, type: 3}
+      propertyPath: currentlyControlledNPC
+      value: 
+      objectReference: {fileID: 6823893868525752687}
     - target: {fileID: 6311430213711569738, guid: 7bb476e084c17cda39ddb1e77686c20b, type: 3}
       propertyPath: m_Name
       value: Mask

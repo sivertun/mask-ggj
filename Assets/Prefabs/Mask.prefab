@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 2573696486274145712}
   - component: {fileID: 6300187489339781858}
   - component: {fileID: 5062986955829817953}
+  - component: {fileID: 5978354528582364841}
   m_Layer: 0
   m_Name: Mask
   m_TagString: Mask
@@ -166,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e138d51217617a682a0b3d3e35cdaf37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  playerController: {fileID: 0}
+  playerController: {fileID: 5978354528582364841}
   rb: {fileID: 2573696486274145712}
   minThrowForce: 5
   maxThrowForce: 20
@@ -212,6 +213,29 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &5978354528582364841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6311430213711569738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2819e625fcf181c42b6482c6b3df21e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  walkSpeed: 10
+  runSpeed: 15
+  jumpPower: 15
+  jumpPowerCuttingRateUponRelease: 0.7
+  groundCheckDistance: 1
+  groundCheckBox: {x: 1, y: 0.3}
+  coyoteMaxTime: 0.08
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  currentlyControlledNPC: {fileID: 0}
 --- !u!1 &6357262782955913472
 GameObject:
   m_ObjectHideFlags: 0

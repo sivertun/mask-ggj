@@ -19,13 +19,14 @@ public class FollowPlayer : MonoBehaviour
         if (!playerTransform)
         {
             Attach();
+            if(!playerTransform) return;
         }
         transform.position = playerTransform.position + offset;
     }
 
     private void Attach()
     {
-        var player = GameObject.FindWithTag("Player").transform;
+        var player = GameObject.FindWithTag("Player")?.transform;
         if (player)
         {
             playerTransform = player;
