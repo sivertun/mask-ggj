@@ -3,9 +3,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float walkSpeed = 25f;
+    [SerializeField] private float walkSpeed = 15f;
     [SerializeField] private float jumpPower = 10f;
-    [SerializeField] private float groundCheckDistance = .3f;
+    [SerializeField] private float jumpPowerCuttingRateUponRelease = 0.7f;
+    [SerializeField] private float groundCheckDistance = 1f;
     [SerializeField] private Vector2 groundCheckBox;
     [SerializeField] private float coyoteMaxTime = .3f;
     [SerializeField] private LayerMask groundLayer;
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Physics2D.BoxCast(currentlyControlledNPC.transform.position, groundCheckBox, 0, -currentlyControlledNPC.transform.up, groundCheckDistance, groundLayer))
         {
+            releasedJump = false;
             return true;
         } else
         {
@@ -71,6 +73,8 @@ public class PlayerController : MonoBehaviour
             jumping = true;
         } else if (jumping == true)
         {
+
+            print("Released jump");
             jumping = false;
             releasedJump = true;
         }
@@ -95,11 +99,13 @@ public class PlayerController : MonoBehaviour
         if (jumping == true && coyoteCounter > 0)
         {
             coyoteCounter = 0;
-            velocityToApply.y += jumpPower;
-        } else if (releasedJump == true && coyoteCounter < 0)
+            print("Velocifying");
+            velocityToApply.y = jumpPower;
+        } else if (releasedJump == true && coyoteCounter < 0 && rb.linearVelocity.y > 0)
         {
+            print("We cuttin");
             releasedJump = false;
-            velocityToApply *= new Vector2(0, 0.5f);
+            velocityToApply *= new Vector2(0, jumpPowerCuttingRateUponRelease);
         }
 
         rb.linearVelocity = velocityToApply;

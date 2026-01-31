@@ -439,10 +439,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2819e625fcf181c42b6482c6b3df21e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  walkSpeed: 25
+  walkSpeed: 15
   jumpPower: 10
-  groundCheckDistance: 1.08
-  groundCheckBox: {x: 1, y: 0.15}
+  groundCheckDistance: 0.96
+  groundCheckBox: {x: 1, y: 0.3}
   coyoteMaxTime: 0.3
   groundLayer:
     serializedVersion: 2
@@ -499,6 +499,10 @@ PrefabInstance:
     - target: {fileID: 1712584051790416587, guid: 7f6081dfff576daa6b699a4e7e4e2b95, type: 3}
       propertyPath: m_Name
       value: NPC
+      objectReference: {fileID: 0}
+    - target: {fileID: 4764137347136398299, guid: 7f6081dfff576daa6b699a4e7e4e2b95, type: 3}
+      propertyPath: m_GravityScale
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
