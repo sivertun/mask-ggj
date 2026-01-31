@@ -50,7 +50,6 @@ public class MaskMovement : MonoBehaviour
     {
         maskCollider = GetComponent<Collider2D>();
         parentCollider = parent.GetComponent<Collider2D>();
-        Debug.Log(parentCollider);
         Physics2D.IgnoreCollision(maskCollider, parentCollider, true);
         catchCooldown = 0.25f;
 
@@ -114,7 +113,10 @@ public class MaskMovement : MonoBehaviour
                 float chargePercent = currentCharge / chargeTime;
                 float force = Mathf.Lerp(minThrowForce, maxThrowForce, chargePercent);
                 throwVector = GetThrowVector2D();
-                Throw(throwVector * force, playerController.getCurrentlyControlledNPC());
+                
+                Rigidbody2D playerRb = playerController.getCurrentlyControlledNPC().GetComponent<Rigidbody2D>();
+
+                Throw(throwVector * force + playerRb.linearVelocity, playerController.getCurrentlyControlledNPC());
 
                 isCharging = false;
                 trajectoryLine.enabled = false;
