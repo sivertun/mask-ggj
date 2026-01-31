@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6393910335793841052}
   - component: {fileID: 4764137347136398299}
   - component: {fileID: 8709663458482090081}
-  - component: {fileID: 8337843794465021808}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -167,25 +166,3 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8337843794465021808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1712584051790416587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2819e625fcf181c42b6482c6b3df21e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  walkSpeed: 10
-  jumpPower: 15
-  jumpPowerCuttingRateUponRelease: 0.7
-  groundCheckDistance: 0.96
-  groundCheckBox: {x: 1, y: 0.3}
-  coyoteMaxTime: 0.08
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  currentlyControlledNPC: {fileID: 1712584051790416587}

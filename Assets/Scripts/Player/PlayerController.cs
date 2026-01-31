@@ -24,17 +24,26 @@ public class PlayerController : MonoBehaviour
 
     public void setCurrentlyControlledNPC(GameObject npc)
     {
+        if (currentlyControlledNPC)
+        {
+            currentlyControlledNPC.layer = LayerMask.NameToLayer("Default");
+        }
         currentlyControlledNPC = npc;
+        currentlyControlledNPC.layer = LayerMask.NameToLayer("Ignore Raycast");
     }
 
     public void removeControlledNPC()
     {
+        if (currentlyControlledNPC)
+        {
+            currentlyControlledNPC.layer = LayerMask.NameToLayer("Default");
+        }
         currentlyControlledNPC = null;
     }
 
     public bool CheckNPCGrounded()
     {
-        if (Physics2D.BoxCast(currentlyControlledNPC.transform.position, groundCheckBox, 0, -currentlyControlledNPC.transform.up, groundCheckDistance, groundLayer))
+        if (Physics2D.BoxCast(currentlyControlledNPC.transform.position, groundCheckBox, 0, -currentlyControlledNPC.transform.up, groundCheckDistance))
         {
             return true;
         } else
@@ -50,6 +59,11 @@ public class PlayerController : MonoBehaviour
         jumpAction = InputSystem.actions.FindAction("Jump");
         runAction = InputSystem.actions.FindAction("Sprint");
         groundLayer = LayerMask.GetMask("Ground");
+
+        if (currentlyControlledNPC)
+        {
+            currentlyControlledNPC.layer = LayerMask.NameToLayer("Ignore Raycast");
+        }
     }
 
     // Update is called once per frame
