@@ -2,12 +2,20 @@ using UnityEngine;
 
 public class CatchMaskController : MonoBehaviour
 {
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Mask"))
         {
-            PlayerController pc = collision.gameObject.GetComponent<PlayerController>();
-            pc.setCurrentlyControlledNPC(this.gameObject);
+            CatchMask(collision.gameObject);
+        }
+    }
+
+    void CatchMask(GameObject mask)
+    {
+        MaskMovement mm = mask.GetComponent<MaskMovement>();
+        if (mm.CanBeCaught)
+        {
+            mm.Catch(this.gameObject);
         }
     }
 }
