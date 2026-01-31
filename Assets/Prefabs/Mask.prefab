@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 8613976522566845387}
   - component: {fileID: 8132342108045332292}
   - component: {fileID: 2573696486274145712}
+  - component: {fileID: 552802435876864667}
   - component: {fileID: 6300187489339781858}
   m_Layer: 0
   m_Name: Mask
@@ -199,6 +200,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &552802435876864667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6311430213711569738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2819e625fcf181c42b6482c6b3df21e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  walkSpeed: 25
+  currentlyControlledNPC: {fileID: 0}
 --- !u!114 &6300187489339781858
 MonoBehaviour:
   m_ObjectHideFlags: 0
