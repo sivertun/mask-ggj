@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 581831296}
   - component: {fileID: 581831295}
   - component: {fileID: 581831294}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,6 +440,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   walkSpeed: 25
+  jumpPower: 10
+  groundCheckDistance: 1.08
+  groundCheckBox: {x: 1, y: 0.15}
+  coyoteMaxTime: 0.3
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
   currentlyControlledNPC: {fileID: 1753798885}
 --- !u!1001 &3757933806017089657
 PrefabInstance:

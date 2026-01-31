@@ -4,6 +4,12 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float walkSpeed = 25f;
+    [SerializeField] private float jumpPower = 10f;
+    [SerializeField] private float groundCheckDistance = .3f;
+    [SerializeField] private Vector2 groundCheckBox;
+    [SerializeField] private float coyoteMaxTime = .3f;
+    [SerializeField] private LayerMask groundLayer;
+    private float coyoteCounter = 0f;
 
     [SerializeField] private GameObject currentlyControlledNPC = null;
     private InputAction moveAction;
@@ -11,6 +17,8 @@ public class PlayerController : MonoBehaviour
     private InputAction runAction;
 
     private Vector2 horizontalInput = Vector2.zero;
+    private bool jumping = false;
+    private bool releasedJump = false;
 
     public void setCurrentlyControlledNPC(GameObject npc)
     {
@@ -20,6 +28,17 @@ public class PlayerController : MonoBehaviour
     public void removeControlledNPC()
     {
         currentlyControlledNPC = null;
+    }
+
+    public bool CheckNPCGrounded()
+    {
+        if (Physics2D.BoxCast(currentlyControlledNPC.transform.position, groundCheckBox, 0, -currentlyControlledNPC.transform.up, groundCheckDistance, groundLayer))
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -38,11 +57,25 @@ public class PlayerController : MonoBehaviour
         bool holdingJump = jumpAction.ReadValue<float>() > 0 ? true : false;
         bool holdingRun = runAction.ReadValue<float>() > 0 ? true : false;
 
-        if (holdingJump)
+        // Handle jumping
+        if (CheckNPCGrounded())
         {
-            print("Jumping!");
+            coyoteCounter = coyoteMaxTime;
+        } else
+        {
+            coyoteCounter -= Time.deltaTime;
         }
 
+        if (holdingJump)
+        {
+            jumping = true;
+        } else if (jumping == true)
+        {
+            jumping = false;
+            releasedJump = true;
+        }
+
+        // Running logic
         if (holdingRun)
         {
             print("Running!");
@@ -53,9 +86,27 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         if (currentlyControlledNPC is null) return;
+
         Rigidbody2D rb = currentlyControlledNPC.GetComponent<Rigidbody2D>();
 
         // Set the velocity for NPC
-        rb.linearVelocity = new Vector2(horizontalInput.x * walkSpeed, rb.linearVelocity.y);
+        Vector2 velocityToApply = new Vector2(horizontalInput.x * walkSpeed, rb.linearVelocity.y);
+        
+        if (jumping == true && coyoteCounter > 0)
+        {
+            coyoteCounter = 0;
+            velocityToApply.y += jumpPower;
+        } else if (releasedJump == true && coyoteCounter < 0)
+        {
+            releasedJump = false;
+            velocityToApply *= new Vector2(0, 0.5f);
+        }
+
+        rb.linearVelocity = velocityToApply;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(currentlyControlledNPC.transform.position - currentlyControlledNPC.transform.up * groundCheckDistance, groundCheckBox);
     }
 }
