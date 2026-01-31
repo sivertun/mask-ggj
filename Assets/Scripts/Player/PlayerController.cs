@@ -80,25 +80,10 @@ public class PlayerController : MonoBehaviour
         horizontalInput = moveAction.ReadValue<Vector2>();
         bool holdingJump = jumpAction.ReadValue<float>() > 0 ? true : false;
         bool holdingRun = runAction.ReadValue<float>() > 0 ? true : false;
+        
 
-        // Handle animating movement
-        Animator animator = currentlyControlledNPC.GetComponent<Animator>();
-        SpriteRenderer sprite = currentlyControlledNPC.GetComponentInChildren<SpriteRenderer>();
-        if (horizontalInput.x > 0)
-        {
-            sprite.flipX = false;
-            animator.SetBool("isWalking", true);
-        } else if (horizontalInput.x < 0)
-        {
-            animator.SetBool("isWalking", true);
-            sprite.flipX = true;
-        } else
-        {
-            animator.SetBool("isWalking", false);
-        }
-
-            // Handle jumping
-            bool npcGrounded = CheckNPCGrounded();
+        // Handle jumping
+        bool npcGrounded = CheckNPCGrounded();
         if (npcGrounded)
         {
             coyoteCounter = coyoteMaxTime;
@@ -118,15 +103,11 @@ public class PlayerController : MonoBehaviour
             releaseJumpEarly = true;   
             releasedJump = true;
         }
-
-        // Running logic
         if (holdingRun)
         {
-            animator.SetBool("isRunning", true);
             running = true;
         } else
         {
-            animator.SetBool("isRunning", false);
             running = false;
         }
     }
