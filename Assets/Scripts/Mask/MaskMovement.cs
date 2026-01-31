@@ -9,6 +9,23 @@ public class MaskMovement : MonoBehaviour
     [SerializeField] private Vector2 throwVector;
 
     bool isAttached = true;
+
+
+    [Header("Throw")] 
+    [SerializeField] private float minThrowForce = 5f;
+
+    [SerializeField] private float maxThrowForce = 20f;
+    [SerializeField] private float chargeTime = 1.5f;
+
+    private float currentCharge;
+    private bool isCharging;
+    
+    [Header("Trajectory")]
+    [SerializeField] LineRenderer trajectoryLine;
+    [SerializeField] int trajectoryPoints = 15;
+    [SerializeField] float timeStep = 0.05f;
+    [SerializeField] Transform throwOrigin;
+    
     
     private InputAction throwAction;
     private void Start()
@@ -26,14 +43,16 @@ public class MaskMovement : MonoBehaviour
         rb.simulated = true;
         rb.AddForce(throwVector);
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         if (!isAttached) return;
 
         if (throwAction.WasPressedThisFrame())
         {
+            /*isCharging = true;
+            currentCharge = 0;
+            trajectoryLine.enabled = true;*/
             Throw(throwVector);
         }
     }
