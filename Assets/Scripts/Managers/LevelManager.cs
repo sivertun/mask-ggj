@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -8,9 +9,10 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
     
-    private int currentLevelIndex = -1;
+    private int currentLevelIndex = 0;
     
-    [SerializeField] List<string> levels = new List<string>();
+    [SerializeField] List<string> levels = new List<string>(){"Level1", "Level2", "Level3"};
+    
     
     private InputAction restartAction;
 
@@ -28,6 +30,9 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         restartAction = InputSystem.actions.FindAction("Restart");
+
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        currentLevelIndex = levels.IndexOf(currentSceneName);
     }
     
     public void LoadLevel(string levelName)
@@ -37,7 +42,8 @@ public class LevelManager : MonoBehaviour
 
     public void RestartLevel()
     {
-        LoadLevel(levels[currentLevelIndex]);;
+
+        LoadLevel(levels[currentLevelIndex]);
     }
 
     public void LoadNextLevel()

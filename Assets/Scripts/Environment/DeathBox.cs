@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections.Generic;  
 
 
 public class DeathBox : MonoBehaviour
@@ -13,8 +15,15 @@ public class DeathBox : MonoBehaviour
          
         if (other.gameObject.CompareTag("Mask") || other.gameObject.CompareTag("NPC"))
         {
-            Debug.Log(other.gameObject.name + " has died.");
-            Destroy(other.gameObject);
+            if (LevelManager.Instance != null)
+            {
+                Debug.Log("DeathBox: Restarting level due to collision with " + other.gameObject.tag);
+                LevelManager.Instance.RestartLevel();
+            }
+            else
+            {
+                Debug.Log("DeathBox: No LevelManager found in the scene!");
+            }
         }
         
     }
