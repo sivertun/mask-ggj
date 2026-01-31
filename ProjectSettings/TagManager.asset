@@ -4,8 +4,7 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - DeathBox
-  - NPC
+  - Mask
   layers:
   - Default
   - TransparentFX

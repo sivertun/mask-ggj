@@ -102,12 +102,9 @@ InitTestScene*.unity*
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 
-<<<<<<< HEAD
 Assets/_Recovery/
 Assets/_Recovery.meta
-=======
 
 .idea
 .vscode
 mask-ggj.slnx
->>>>>>> main
