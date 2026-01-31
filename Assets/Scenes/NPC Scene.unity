@@ -422,6 +422,25 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1 &1753798885 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1712584051790416587, guid: 7f6081dfff576daa6b699a4e7e4e2b95, type: 3}
+  m_PrefabInstance: {fileID: 3757933806017089657}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1753798886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753798885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2819e625fcf181c42b6482c6b3df21e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  walkSpeed: 25
+  currentlyControlledNPC: {fileID: 1753798885}
 --- !u!1001 &3757933806017089657
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -477,7 +496,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1712584051790416587, guid: 7f6081dfff576daa6b699a4e7e4e2b95, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1753798886}
   m_SourcePrefab: {fileID: 100100000, guid: 7f6081dfff576daa6b699a4e7e4e2b95, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
