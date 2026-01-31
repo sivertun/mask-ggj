@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float walkSpeed = 10f;
+    [SerializeField] private float runSpeed = 15f;
     [SerializeField] private float jumpPower = 15f;
     [SerializeField] private float jumpPowerCuttingRateUponRelease = 0.7f;
     [SerializeField] private float groundCheckDistance = 1f;
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private bool jumpOnNextOpportunity = false;
     private bool releaseJumpEarly = false;
     private bool releasedJump = true;
+    private bool running = false;
 
     public GameObject getCurrentlyControlledNPC()
     {
@@ -104,7 +106,10 @@ public class PlayerController : MonoBehaviour
         // Running logic
         if (holdingRun)
         {
-            print("Running!");
+            running = true;
+        } else
+        {
+            running = false;
         }
     }
 
@@ -116,14 +121,23 @@ public class PlayerController : MonoBehaviour
         Rigidbody2D rb = currentlyControlledNPC.GetComponent<Rigidbody2D>();
 
         // Set the velocity for NPC
-        Vector2 velocityToApply = new Vector2(horizontalInput.x * walkSpeed, rb.linearVelocity.y);
-        
+        Vector2 velocityToApply = new Vector2(0, rb.linearVelocity.y);
+
+        if (running)
+        {
+            velocityToApply.x = horizontalInput.x * runSpeed;
+        } else
+        {
+            velocityToApply.x = horizontalInput.x * walkSpeed;
+        }
+
         if (jumpOnNextOpportunity == true && coyoteCounter > 0)
         {
             jumpOnNextOpportunity = false;
             coyoteCounter = 0;
             velocityToApply.y = jumpPower;
-        } else if (releaseJumpEarly == true && coyoteCounter < 0 && rb.linearVelocity.y > 0)
+        }
+        else if (releaseJumpEarly == true && coyoteCounter < 0 && rb.linearVelocity.y > 0)
         {
             releaseJumpEarly = false;
             velocityToApply *= new Vector2(0, jumpPowerCuttingRateUponRelease);
