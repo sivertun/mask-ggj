@@ -12,6 +12,11 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 horizontalInput = Vector2.zero;
 
+    public GameObject getCurrentlyControlledNPC()
+    {
+        return currentlyControlledNPC;
+    }
+
     public void setCurrentlyControlledNPC(GameObject npc)
     {
         currentlyControlledNPC = npc;
