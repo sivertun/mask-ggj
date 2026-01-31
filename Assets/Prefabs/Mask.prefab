@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3796538367805812892}
   - component: {fileID: 1721711255052579640}
+  - component: {fileID: 9194866818780077176}
   m_Layer: 0
   m_Name: Mask sprite
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8613976522566845387}
@@ -81,7 +82,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: df827ffcb58ebe4488cea3ca32e4a257, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 22cde931784913147aa25b52ae6a4c7d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -91,6 +92,22 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &9194866818780077176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2282119115107364154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f496734a3795b874fa2fd3e8d7cab3e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  maskSpriteRenderer: {fileID: 1721711255052579640}
+  maskMovement: {fileID: 6300187489339781858}
+  attachedSprite: {fileID: 21300000, guid: c68601672e552dc4aa4232a2f88a9798, type: 3}
+  looseSprite: {fileID: 21300000, guid: 22cde931784913147aa25b52ae6a4c7d, type: 3}
 --- !u!1 &6311430213711569738
 GameObject:
   m_ObjectHideFlags: 0
