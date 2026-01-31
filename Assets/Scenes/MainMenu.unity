@@ -844,6 +844,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8192004206210770361, guid: 815d569dadb2ef741b06a3c0c40bd01c, type: 3}
+      propertyPath: 'levels.Array.data[0]'
+      value: NPC Scene
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
