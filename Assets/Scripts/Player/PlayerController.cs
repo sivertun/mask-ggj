@@ -134,6 +134,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (!currentlyControlledNPC) return;
         Gizmos.DrawWireCube(currentlyControlledNPC.transform.position - currentlyControlledNPC.transform.up * groundCheckDistance, groundCheckBox);
     }
 }
