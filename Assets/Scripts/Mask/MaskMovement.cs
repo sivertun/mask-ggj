@@ -1,4 +1,6 @@
 
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,7 +13,7 @@ public class MaskMovement : MonoBehaviour
     float catchCooldown = 0f;
 
     bool isAttached = true;
-
+    public event Action<bool> OnAttachmentChanged; 
     public bool CanBeCaught => !isAttached;
 
     private Collider2D maskCollider;
@@ -54,6 +56,7 @@ public class MaskMovement : MonoBehaviour
         catchCooldown = 0.25f;
 
         isAttached = false;
+        OnAttachmentChanged?.Invoke(isAttached);
         playerController.removeControlledNPC();
         transform.SetParent(null);
         rb.simulated = true;
@@ -74,6 +77,7 @@ public class MaskMovement : MonoBehaviour
         pc.setCurrentlyControlledNPC(parent);
 
         isAttached = true;
+        OnAttachmentChanged?.Invoke(isAttached);
         transform.SetParent(parent.transform);
         transform.SetLocalPositionAndRotation(new Vector2(0f, 0.25f), Quaternion.identity);
         transform.localScale = new Vector3(1f, 0.5f, 1f);
