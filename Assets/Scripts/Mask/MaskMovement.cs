@@ -22,7 +22,7 @@ public class MaskMovement : MonoBehaviour
     [Header("Throw")] 
     [SerializeField] private float minThrowForce = 5f;
 
-    [SerializeField] private float maxThrowForce = 20f;
+    [SerializeField] private float maxThrowForce = 15f;
     [SerializeField] private float chargeTime = 1.5f;
 
     private float currentCharge;
