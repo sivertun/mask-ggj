@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3127637456436443658
+--- !u!1 &2248112218480082648
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,42 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4270784046274082565}
-  - component: {fileID: 8192004206210770361}
+  - component: {fileID: 4343416022339980441}
+  - component: {fileID: 3160221834176346142}
   m_Layer: 0
-  m_Name: LevelManager
+  m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4270784046274082565
+--- !u!4 &4343416022339980441
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3127637456436443658}
+  m_GameObject: {fileID: 2248112218480082648}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 173, y: 96.69772, z: 0}
+  m_LocalPosition: {x: -2, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8192004206210770361
+--- !u!114 &3160221834176346142
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3127637456436443658}
+  m_GameObject: {fileID: 2248112218480082648}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad4f1eb7973d152459abb05da0f42c6e, type: 3}
+  m_Script: {fileID: 11500000, guid: d450041aadac727059c37c6e9b5cc959, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
-  levels:
-  - TestMovementScene
-  - NPC Scene
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnManager
+  objectToSpawn: {fileID: 1712584051790416587, guid: 7f6081dfff576daa6b699a4e7e4e2b95, type: 3}
