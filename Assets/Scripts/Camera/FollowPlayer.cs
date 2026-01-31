@@ -7,7 +7,7 @@ public class FollowPlayer : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform;
     
-    [SerializeField] private float distanceFromPlayer = 10f;
+    [SerializeField] private float distanceFromPlayer = 20f;
     
     private Camera mainCamera;
 
