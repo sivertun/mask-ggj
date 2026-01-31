@@ -3,12 +3,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float walkSpeed = 15f;
-    [SerializeField] private float jumpPower = 10f;
+    [SerializeField] private float walkSpeed = 10f;
+    [SerializeField] private float jumpPower = 15f;
     [SerializeField] private float jumpPowerCuttingRateUponRelease = 0.7f;
     [SerializeField] private float groundCheckDistance = 1f;
-    [SerializeField] private Vector2 groundCheckBox;
-    [SerializeField] private float coyoteMaxTime = .3f;
+    [SerializeField] private Vector2 groundCheckBox = new Vector2(1, 0.3f);
+    [SerializeField] private float coyoteMaxTime = 0.08f;
     [SerializeField] private LayerMask groundLayer;
     private float coyoteCounter = 0f;
 
@@ -18,8 +18,9 @@ public class PlayerController : MonoBehaviour
     private InputAction runAction;
 
     private Vector2 horizontalInput = Vector2.zero;
-    private bool jumping = false;
-    private bool releasedJump = false;
+    private bool jumpOnNextOpportunity = false;
+    private bool releaseJumpEarly = false;
+    private bool releasedJump = true;
 
     public void setCurrentlyControlledNPC(GameObject npc)
     {
@@ -35,7 +36,6 @@ public class PlayerController : MonoBehaviour
     {
         if (Physics2D.BoxCast(currentlyControlledNPC.transform.position, groundCheckBox, 0, -currentlyControlledNPC.transform.up, groundCheckDistance, groundLayer))
         {
-            releasedJump = false;
             return true;
         } else
         {
@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
         runAction = InputSystem.actions.FindAction("Sprint");
+        groundLayer = LayerMask.GetMask("Ground");
     }
 
     // Update is called once per frame
@@ -60,7 +61,8 @@ public class PlayerController : MonoBehaviour
         bool holdingRun = runAction.ReadValue<float>() > 0 ? true : false;
 
         // Handle jumping
-        if (CheckNPCGrounded())
+        bool npcGrounded = CheckNPCGrounded();
+        if (npcGrounded)
         {
             coyoteCounter = coyoteMaxTime;
         } else
@@ -68,14 +70,15 @@ public class PlayerController : MonoBehaviour
             coyoteCounter -= Time.deltaTime;
         }
 
-        if (holdingJump)
+        if (holdingJump && releasedJump)
         {
-            jumping = true;
-        } else if (jumping == true)
+            jumpOnNextOpportunity = true;
+            releaseJumpEarly = false;
+            releasedJump = false;
+        } else if (holdingJump == false && releasedJump == false)
         {
-
-            print("Released jump");
-            jumping = false;
+            jumpOnNextOpportunity = false;
+            releaseJumpEarly = true;   
             releasedJump = true;
         }
 
@@ -96,15 +99,14 @@ public class PlayerController : MonoBehaviour
         // Set the velocity for NPC
         Vector2 velocityToApply = new Vector2(horizontalInput.x * walkSpeed, rb.linearVelocity.y);
         
-        if (jumping == true && coyoteCounter > 0)
+        if (jumpOnNextOpportunity == true && coyoteCounter > 0)
         {
+            jumpOnNextOpportunity = false;
             coyoteCounter = 0;
-            print("Velocifying");
             velocityToApply.y = jumpPower;
-        } else if (releasedJump == true && coyoteCounter < 0 && rb.linearVelocity.y > 0)
+        } else if (releaseJumpEarly == true && coyoteCounter < 0 && rb.linearVelocity.y > 0)
         {
-            print("We cuttin");
-            releasedJump = false;
+            releaseJumpEarly = false;
             velocityToApply *= new Vector2(0, jumpPowerCuttingRateUponRelease);
         }
 
