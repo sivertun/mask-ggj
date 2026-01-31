@@ -5,7 +5,7 @@ public class FlyingNPCMovement : MonoBehaviour
 	[SerializeField] private int range;
 	[SerializeField] private Vector2 npcVelocity;
 	private Vector2 startPosition;
-	public Rigidbody2D rb;
+	private Rigidbody2D rb;
 
 	public void Start() {
 		rb = GetComponent<Rigidbody2D>();

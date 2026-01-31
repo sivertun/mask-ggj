@@ -2,23 +2,23 @@ using UnityEngine;
 
 public class NPCMovement : MonoBehaviour
 {
-	[SerializeField] private int leftRange;
-	[SerializeField] private int rightRange;
-	[SerializeField] private int npcVelocity;
-	public Rigidbody2D rb;
-	private int startX;
-	private int leftTurnX;
-	private int rightTurnX;
+	[SerializeField] private float leftRange;
+	[SerializeField] private float rightRange;
+	[SerializeField] private float npcVelocity;
+	private Rigidbody2D rb;
+	private float startX;
+	private float leftTurnX;
+	private float rightTurnX;
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
-		startX = (int) rb.position.x;
+		startX = rb.position.x;
 		leftTurnX = startX - leftRange;
 		rightTurnX = startX + rightRange;
 	}
 	void FixedUpdate()
 	{
-		int currentX = (int) rb.position.x;
+		float currentX = rb.position.x;
 		if(
 			// To the left and moving left
 			// or
