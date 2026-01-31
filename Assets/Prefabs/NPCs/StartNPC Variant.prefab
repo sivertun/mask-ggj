@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: currentlyControlledNPC
       value: 
       objectReference: {fileID: 6823893868525752687}
+    - target: {fileID: 1721711255052579640, guid: 7bb476e084c17cda39ddb1e77686c20b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c68601672e552dc4aa4232a2f88a9798, type: 3}
     - target: {fileID: 2573696486274145712, guid: 7bb476e084c17cda39ddb1e77686c20b, type: 3}
       propertyPath: m_Simulated
       value: 0
@@ -34,11 +38,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8613976522566845387, guid: 7bb476e084c17cda39ddb1e77686c20b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0062000006
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 8613976522566845387, guid: 7bb476e084c17cda39ddb1e77686c20b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.256325
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 8613976522566845387, guid: 7bb476e084c17cda39ddb1e77686c20b, type: 3}
       propertyPath: m_LocalPosition.z
