@@ -226,5 +226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e138d51217617a682a0b3d3e35cdaf37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  playerController: {fileID: 552802435876864667}
   rb: {fileID: 2573696486274145712}
   throwVector: {x: 100, y: 100}
