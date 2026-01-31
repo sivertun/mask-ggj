@@ -45,5 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   levels:
-  - TestMovementScene
-  - NPC Scene
+  - First floor
+  - Level1
+  - Level2
+  - Level3

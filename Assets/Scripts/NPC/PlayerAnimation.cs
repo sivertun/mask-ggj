@@ -53,6 +53,7 @@ public class PlayerAnimation : MonoBehaviour
     
     void FaceRight()
     {
+        if (!transform.parent) return;
         Vector3 scale = transform.parent.localScale;
         scale.x = Mathf.Abs(scale.x);
         transform.parent.localScale = scale;
@@ -60,6 +61,7 @@ public class PlayerAnimation : MonoBehaviour
 
     void FaceLeft()
     {
+        if (!transform.parent) return;
         Vector3 scale = transform.parent.localScale;
         scale.x = -Mathf.Abs(scale.x);
         transform.parent.localScale = scale;
