@@ -7,11 +7,14 @@ public class FollowPlayer : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform;
     
-    [SerializeField] private Vector3 offset;
+    [SerializeField] private float distanceFromPlayer = 10f;
+    
+    private Camera mainCamera;
 
     private void Start()
     {
         Attach();
+        mainCamera = Camera.main;
     }
 
     private void Update()
@@ -21,7 +24,8 @@ public class FollowPlayer : MonoBehaviour
             Attach();
             if(!playerTransform) return;
         }
-        transform.position = playerTransform.position + offset;
+        transform.position = playerTransform.position + new Vector3(0, 0, -distanceFromPlayer);
+        mainCamera.orthographicSize = distanceFromPlayer;
     }
 
     private void Attach()
