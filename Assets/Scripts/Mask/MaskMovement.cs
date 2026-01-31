@@ -12,7 +12,7 @@ public class MaskMovement : MonoBehaviour
 
     bool isAttached = true;
 
-    public bool CanBeCaught => !isAttached && catchCooldown <= 0f;
+    public bool CanBeCaught => !isAttached;
 
     private Collider2D maskCollider;
     private Collider2D parentCollider;
@@ -63,6 +63,14 @@ public class MaskMovement : MonoBehaviour
 
     public void Catch(GameObject parent)
     {
+        if (catchCooldown > 0 && parentCollider != null && parentCollider.gameObject == parent) return;
+
+        if (parentCollider != null)
+        {
+            Physics2D.IgnoreCollision(maskCollider, parentCollider, false);
+            parentCollider = null;
+        }
+
         PlayerController pc = this.gameObject.GetComponent<PlayerController>();
         pc.setCurrentlyControlledNPC(parent);
 
