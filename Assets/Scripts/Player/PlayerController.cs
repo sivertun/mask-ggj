@@ -22,6 +22,11 @@ public class PlayerController : MonoBehaviour
     private bool releaseJumpEarly = false;
     private bool releasedJump = true;
 
+    public GameObject getCurrentlyControlledNPC()
+    {
+        return currentlyControlledNPC;
+    }
+
     public void setCurrentlyControlledNPC(GameObject npc)
     {
         if (currentlyControlledNPC)

@@ -1,3 +1,5 @@
+using System;
+using System.Net.Mail;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,10 +9,26 @@ public class FollowPlayer : MonoBehaviour
     
     [SerializeField] private Vector3 offset;
 
+    private void Start()
+    {
+        Attach();
+    }
 
     private void Update()
     {
-        if (!playerTransform) return;
+        if (!playerTransform)
+        {
+            Attach();
+        }
         transform.position = playerTransform.position + offset;
+    }
+
+    private void Attach()
+    {
+        var player = GameObject.FindWithTag("Player").transform;
+        if (player)
+        {
+            playerTransform = player;
+        }
     }
 }
