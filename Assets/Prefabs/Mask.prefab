@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -5329807500003393347, guid: 7b90cf3664450e34a8ac697d4b8727ed, type: 3}
+  m_Sprite: {fileID: -1500434286138515679, guid: df827ffcb58ebe4488cea3ca32e4a257, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -228,4 +228,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   playerController: {fileID: 552802435876864667}
   rb: {fileID: 2573696486274145712}
-  throwVector: {x: 300, y: 300}
+  minThrowForce: 5
+  maxThrowForce: 20
+  chargeTime: 1.5
+  trajectoryLine: {fileID: 0}
+  trajectoryPoints: 15
+  maxPreviewTime: 0.4
+  timeStep: 0.05
+  throwOrigin: {fileID: 8613976522566845387}
