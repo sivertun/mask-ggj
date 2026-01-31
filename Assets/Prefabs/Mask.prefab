@@ -228,4 +228,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   playerController: {fileID: 552802435876864667}
   rb: {fileID: 2573696486274145712}
-  throwVector: {x: 100, y: 100}
+  throwVector: {x: 300, y: 300}
