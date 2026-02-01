@@ -10,6 +10,8 @@ public class MaskMovement : MonoBehaviour
     public Rigidbody2D rb;
     private Vector2 throwVector;
 
+    private AudioSource[] audioSources;
+
     float catchCooldown = 0f;
 
     bool isAttached = true;
@@ -46,6 +48,7 @@ public class MaskMovement : MonoBehaviour
         throwAction = InputSystem.actions.FindAction("Throw");
         aimAction = InputSystem.actions.FindAction("Aim");
         rb = GetComponent<Rigidbody2D>();
+	audioSources = GetComponents<AudioSource>();
     }
 
     public void Throw(Vector2 velocity, GameObject parent)
@@ -55,17 +58,20 @@ public class MaskMovement : MonoBehaviour
         Physics2D.IgnoreCollision(maskCollider, parentCollider, true);
         catchCooldown = 0.25f;
 
+        PlayerAnimation animation = GetComponent<PlayerAnimation>();
+        animation.Throw(parent);
+
         isAttached = false;
         OnAttachmentChanged?.Invoke(isAttached);
         playerController.removeControlledNPC();
         transform.SetParent(null);
         rb.simulated = true;
         rb.linearVelocity = velocity;
-
 	NPCMovement npcMovementScript = parent.GetComponent<NPCMovement>();
 	if(npcMovementScript) {
 		npcMovementScript.startMovement();
 	}
+	audioSources[1].Play(0);
     }
 
     public void Catch(GameObject parent, Transform attachpoint)
@@ -89,6 +95,7 @@ public class MaskMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.simulated = false;
         rb.linearVelocity = Vector2.zero;
+	audioSources[0].Play(0);
     }
 
     void Update()

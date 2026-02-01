@@ -20,20 +20,21 @@ public class PlayerAnimation : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
         playerController = GetComponent<PlayerController>();
     }
+
+    public void Throw(GameObject parent)
+    {
+        parent.GetComponent<Animator>();
+        animator.SetBool("isWalking", false);
+        animator.SetBool("isRunning", false);
+    }
     
     void Update()
     {
-        if (!controlledNPC)
-        {
-            controlledNPC = playerController.getCurrentlyControlledNPC();
-        }
+        controlledNPC = playerController.getCurrentlyControlledNPC();
         
         if (!controlledNPC) return;
         
-        if (!animator)
-        {
-            animator = controlledNPC.GetComponent<Animator>();
-        }
+        animator = controlledNPC.GetComponent<Animator>();
         
         // Handle animating movement
         Vector2 horizontalInput = moveAction.ReadValue<Vector2>();
