@@ -10,11 +10,14 @@ public class MaskMovement : MonoBehaviour
     public Rigidbody2D rb;
     private Vector2 throwVector;
 
+    private AudioSource[] audioSources;
+
     float catchCooldown = 0f;
 
     bool isAttached = true;
     public event Action<bool> OnAttachmentChanged; 
     public bool CanBeCaught => !isAttached;
+    bool restarted = false;
 
     private Collider2D maskCollider;
     private Collider2D parentCollider;
@@ -22,8 +25,9 @@ public class MaskMovement : MonoBehaviour
     [Header("Throw")] 
     [SerializeField] private float minThrowForce = 5f;
 
-    [SerializeField] private float maxThrowForce = 20f;
+    [SerializeField] private float maxThrowForce = 15f;
     [SerializeField] private float chargeTime = 1.5f;
+    [SerializeField] private float deceleration = 2f;
 
     private float currentCharge;
     private bool isCharging;
@@ -46,6 +50,7 @@ public class MaskMovement : MonoBehaviour
         throwAction = InputSystem.actions.FindAction("Throw");
         aimAction = InputSystem.actions.FindAction("Aim");
         rb = GetComponent<Rigidbody2D>();
+	audioSources = GetComponents<AudioSource>();
     }
 
     public void Throw(Vector2 velocity, GameObject parent)
@@ -55,12 +60,20 @@ public class MaskMovement : MonoBehaviour
         Physics2D.IgnoreCollision(maskCollider, parentCollider, true);
         catchCooldown = 0.25f;
 
+        PlayerAnimation animation = GetComponent<PlayerAnimation>();
+        animation.Throw(parent);
+
         isAttached = false;
         OnAttachmentChanged?.Invoke(isAttached);
         playerController.removeControlledNPC();
         transform.SetParent(null);
         rb.simulated = true;
         rb.linearVelocity = velocity;
+	NPCMovement npcMovementScript = parent.GetComponent<NPCMovement>();
+	if(npcMovementScript) {
+		npcMovementScript.startMovement();
+	}
+	audioSources[1].Play(0);
     }
 
     public void Catch(GameObject parent, Transform attachpoint)
@@ -84,6 +97,7 @@ public class MaskMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.simulated = false;
         rb.linearVelocity = Vector2.zero;
+	audioSources[0].Play(0);
     }
 
     void Update()
@@ -166,5 +180,28 @@ public class MaskMovement : MonoBehaviour
             trajectoryLine.SetPosition(i, point);
         }
     }
+
+    void OnCollisionStay2D(Collision2D collision)
+{
+    if (!CanBeCaught)
+        return;
+
+    ContactPoint2D contact = collision.contacts[0];
+    Vector2 normal = contact.normal;
+
+    if (normal.y > 0.5f)
+    {
+        if (rb.linearVelocityX > 0)
+            rb.linearVelocityX = Mathf.Max(rb.linearVelocityX - deceleration * Time.fixedDeltaTime, 0);
+        else if (rb.linearVelocityX < 0)
+            rb.linearVelocityX = Mathf.Min(rb.linearVelocityX + deceleration * Time.fixedDeltaTime, 0);
+
+        if (rb.linearVelocityX == 0 && !restarted)
+        {
+            LevelManager.Instance.RestartLevel();
+            restarted = true;
+        }
+    }
+}
 
 }

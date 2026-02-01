@@ -20,20 +20,21 @@ public class PlayerAnimation : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
         playerController = GetComponent<PlayerController>();
     }
+
+    public void Throw(GameObject parent)
+    {
+        parent.GetComponent<Animator>();
+        animator.SetBool("isWalking", false);
+        animator.SetBool("isRunning", false);
+    }
     
     void Update()
     {
-        if (!controlledNPC)
-        {
-            controlledNPC = playerController.getCurrentlyControlledNPC();
-        }
+        controlledNPC = playerController.getCurrentlyControlledNPC();
         
         if (!controlledNPC) return;
         
-        if (!animator)
-        {
-            animator = controlledNPC.GetComponent<Animator>();
-        }
+        animator = controlledNPC.GetComponent<Animator>();
         
         // Handle animating movement
         Vector2 horizontalInput = moveAction.ReadValue<Vector2>();
@@ -53,6 +54,7 @@ public class PlayerAnimation : MonoBehaviour
     
     void FaceRight()
     {
+        if (!transform.parent) return;
         Vector3 scale = transform.parent.localScale;
         scale.x = Mathf.Abs(scale.x);
         transform.parent.localScale = scale;
@@ -60,6 +62,7 @@ public class PlayerAnimation : MonoBehaviour
 
     void FaceLeft()
     {
+        if (!transform.parent) return;
         Vector3 scale = transform.parent.localScale;
         scale.x = -Mathf.Abs(scale.x);
         transform.parent.localScale = scale;
