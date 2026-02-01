@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
         return currentlyControlledNPC;
     }
 
+    private AudioSource[] audioSources;
+
     public void setCurrentlyControlledNPC(GameObject npc)
     {
         if (currentlyControlledNPC)
@@ -85,6 +87,9 @@ public class PlayerController : MonoBehaviour
         {
             currentlyControlledNPC.layer = LayerMask.NameToLayer("Ignore Raycast");
         }
+	      audioSources = GetComponents<AudioSource>();
+	      audioSources[2].Play();
+	      audioSources[2].Pause();
 
         zeroFrictionMaterial = new PhysicsMaterial2D();
         zeroFrictionMaterial.friction = 0f;
@@ -121,6 +126,7 @@ public class PlayerController : MonoBehaviour
             releaseJumpEarly = true;   
             releasedJump = true;
         }
+        // Running logic
         if (holdingRun)
         {
             running = true;
@@ -128,7 +134,21 @@ public class PlayerController : MonoBehaviour
         {
             running = false;
         }
-    }
+	// Sound logic
+	if(holdingRun) {
+		audioSources[2].pitch = 2;
+	} else {
+		audioSources[2].pitch = 1;
+	}
+	if(
+		horizontalInput.x != 0 &&
+		npcGrounded
+	) {
+		audioSources[2].UnPause();
+	} else {
+		audioSources[2].Pause();
+	}
+}
 
     // FixedUpdate is called at a fixed interval and is used for physics operations
     void FixedUpdate()
@@ -177,6 +197,7 @@ public class PlayerController : MonoBehaviour
             jumpOnNextOpportunity = false;
             coyoteCounter = 0;
             velocityToApply.y = jumpPower;
+	    audioSources[3].Play();
         }
         else if (releaseJumpEarly == true && coyoteCounter < 0 && rb.linearVelocity.y > 0)
         {
