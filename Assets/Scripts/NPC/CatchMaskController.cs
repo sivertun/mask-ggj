@@ -18,5 +18,9 @@ public class CatchMaskController : MonoBehaviour
         {
             mm.Catch(this.gameObject, catchPoint);
         }
+	NPCMovement movementNpcScript = GetComponent<NPCMovement>();
+	if(movementNpcScript ) {
+		movementNpcScript.stopMovement();
+	}
     }
 }

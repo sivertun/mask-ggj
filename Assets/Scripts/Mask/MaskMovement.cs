@@ -67,6 +67,10 @@ public class MaskMovement : MonoBehaviour
         transform.SetParent(null);
         rb.simulated = true;
         rb.linearVelocity = velocity;
+	NPCMovement npcMovementScript = parent.GetComponent<NPCMovement>();
+	if(npcMovementScript) {
+		npcMovementScript.startMovement();
+	}
 	audioSources[1].Play(0);
     }
 
