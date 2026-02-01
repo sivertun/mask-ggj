@@ -24,7 +24,7 @@ public class FollowPlayer : MonoBehaviour
             Attach();
             if(!playerTransform) return;
         }
-        transform.position = playerTransform.position + new Vector3(0, 0, -distanceFromPlayer);
+        transform.position = playerTransform.position + new Vector3(0, 5, -distanceFromPlayer);
         mainCamera.orthographicSize = distanceFromPlayer;
     }
 
