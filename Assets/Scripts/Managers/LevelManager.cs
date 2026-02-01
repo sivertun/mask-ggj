@@ -57,6 +57,7 @@ public class LevelManager : MonoBehaviour
         currentLevelIndex++;
         if (currentLevelIndex >= levels.Count)
         {
+            currentLevelIndex = -1;
             SceneManager.LoadScene("MainMenu");
         };
         
