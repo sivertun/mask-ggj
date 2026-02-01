@@ -1715,6 +1715,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AmbientAudio
       objectReference: {fileID: 0}
+    - target: {fileID: 5908720969069756763, guid: 249c40a1a8a1efd189a81ea302374990, type: 3}
+      propertyPath: Mute
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8619455576648031101, guid: 249c40a1a8a1efd189a81ea302374990, type: 3}
       propertyPath: m_LocalPosition.x
       value: 103.11665
