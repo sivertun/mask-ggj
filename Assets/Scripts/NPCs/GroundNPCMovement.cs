@@ -15,7 +15,6 @@ public class GroundNPCMovement : NPCMovement
 	{
 		rb = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
-		animator.SetBool("isWalking", true);
 		startX = rb.position.x;
 		leftTurnX = startX - leftRange;
 		rightTurnX = startX + rightRange;
@@ -25,6 +24,7 @@ public class GroundNPCMovement : NPCMovement
 		if(!doMove) {
 			return;
 		}
+		animator.SetBool("isWalking", true);
 		float currentX = rb.position.x;
 		if(
 			// To the left and moving left
