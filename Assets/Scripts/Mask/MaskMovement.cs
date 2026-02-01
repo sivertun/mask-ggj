@@ -1,4 +1,6 @@
 
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,7 +15,7 @@ public class MaskMovement : MonoBehaviour
     float catchCooldown = 0f;
 
     bool isAttached = true;
-
+    public event Action<bool> OnAttachmentChanged; 
     public bool CanBeCaught => !isAttached;
 
     private Collider2D maskCollider;
@@ -22,7 +24,7 @@ public class MaskMovement : MonoBehaviour
     [Header("Throw")] 
     [SerializeField] private float minThrowForce = 5f;
 
-    [SerializeField] private float maxThrowForce = 20f;
+    [SerializeField] private float maxThrowForce = 15f;
     [SerializeField] private float chargeTime = 1.5f;
 
     private float currentCharge;
@@ -56,7 +58,11 @@ public class MaskMovement : MonoBehaviour
         Physics2D.IgnoreCollision(maskCollider, parentCollider, true);
         catchCooldown = 0.25f;
 
+        PlayerAnimation animation = GetComponent<PlayerAnimation>();
+        animation.Throw(parent);
+
         isAttached = false;
+        OnAttachmentChanged?.Invoke(isAttached);
         playerController.removeControlledNPC();
         transform.SetParent(null);
         rb.simulated = true;
@@ -64,7 +70,7 @@ public class MaskMovement : MonoBehaviour
 	audioSources[1].Play(0);
     }
 
-    public void Catch(GameObject parent)
+    public void Catch(GameObject parent, Transform attachpoint)
     {
         if (catchCooldown > 0 && parentCollider != null && parentCollider.gameObject == parent) return;
 
@@ -78,8 +84,9 @@ public class MaskMovement : MonoBehaviour
         pc.setCurrentlyControlledNPC(parent);
 
         isAttached = true;
+        OnAttachmentChanged?.Invoke(isAttached);
         transform.SetParent(parent.transform);
-        transform.SetLocalPositionAndRotation(new Vector2(0f, 0.25f), Quaternion.identity);
+        transform.SetLocalPositionAndRotation(attachpoint.localPosition, Quaternion.identity);
         transform.localScale = new Vector3(1f, 0.5f, 1f);
         rb = GetComponent<Rigidbody2D>();
         rb.simulated = false;

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CatchMaskController : MonoBehaviour
 {
+    [SerializeField] private Transform catchPoint;
     void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Mask"))
@@ -15,7 +16,7 @@ public class CatchMaskController : MonoBehaviour
         MaskMovement mm = mask.GetComponent<MaskMovement>();
         if (mm.CanBeCaught)
         {
-            mm.Catch(this.gameObject);
+            mm.Catch(this.gameObject, catchPoint);
         }
     }
 }
