@@ -8,6 +8,7 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     
     [SerializeField] private float distanceFromPlayer = 20f;
+    [SerializeField] private float followSpeed = 5f;
     
     private Camera mainCamera;
 
@@ -24,8 +25,21 @@ public class FollowPlayer : MonoBehaviour
             Attach();
             if(!playerTransform) return;
         }
-        transform.position = playerTransform.position + new Vector3(0, 5, -distanceFromPlayer);
-        mainCamera.orthographicSize = distanceFromPlayer;
+        
+        Vector3 targetPosition =
+            playerTransform.position + new Vector3(0, 5, -distanceFromPlayer);
+
+        transform.position = Vector3.Lerp(
+            transform.position,
+            targetPosition,
+            followSpeed * Time.deltaTime
+        );
+
+        mainCamera.orthographicSize = Mathf.Lerp(
+            mainCamera.orthographicSize,
+            distanceFromPlayer,
+            followSpeed * Time.deltaTime
+        );
     }
 
     private void Attach()

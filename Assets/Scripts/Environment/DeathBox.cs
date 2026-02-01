@@ -3,24 +3,15 @@ using UnityEngine;
 
 public class DeathBox : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        Debug.Log("DeathBox is active now.");
-    }
     void OnTriggerEnter2D(Collider2D other)
     {
-         
-        if (other.gameObject.CompareTag("Mask") || other.gameObject.CompareTag("NPC"))
+        if (other.CompareTag("Mask") || other.transform.Find("Mask") != null)
         {
-            Debug.Log(other.gameObject.name + " has died.");
+            LevelManager.Instance.RestartLevel();
+        }
+        else if (other.gameObject.CompareTag("NPC"))
+        {
             Destroy(other.gameObject);
         }
-        
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -151,4 +151,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   playerTransform: {fileID: 0}
-  distanceFromPlayer: 20.26
+  distanceFromPlayer: 15
