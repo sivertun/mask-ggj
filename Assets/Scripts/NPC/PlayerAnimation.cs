@@ -31,8 +31,6 @@ public class PlayerAnimation : MonoBehaviour
     void Update()
     {
         controlledNPC = playerController.getCurrentlyControlledNPC();
-
-        Debug.Log(controlledNPC);
         
         if (!controlledNPC) return;
         
