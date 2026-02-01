@@ -55,6 +55,9 @@ public class MaskMovement : MonoBehaviour
         Physics2D.IgnoreCollision(maskCollider, parentCollider, true);
         catchCooldown = 0.25f;
 
+        PlayerAnimation animation = GetComponent<PlayerAnimation>();
+        animation.Throw(parent);
+
         isAttached = false;
         OnAttachmentChanged?.Invoke(isAttached);
         playerController.removeControlledNPC();
