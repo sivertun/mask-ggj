@@ -27,7 +27,7 @@ public class FollowPlayer : MonoBehaviour
         }
         
         Vector3 targetPosition =
-            playerTransform.position + new Vector3(0, 0, -distanceFromPlayer);
+            playerTransform.position + new Vector3(0, 5, -distanceFromPlayer);
 
         transform.position = Vector3.Lerp(
             transform.position,
