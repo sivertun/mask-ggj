@@ -13,9 +13,10 @@ public class LevelManager : MonoBehaviour
     [SerializeField] List<string> levels = new List<string>();
     
     private InputAction restartAction;
-
-    private bool timerActive = false;
+    
     private float timer = 0f;
+    
+    public event Action onLevelComplete;
 
     private void Awake()
     {
@@ -38,7 +39,6 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene(levelName);
         timer = 0f;
-        timerActive = true;
     }
 
     public void RestartLevel()
@@ -47,10 +47,19 @@ public class LevelManager : MonoBehaviour
         LoadLevel(levels[currentLevelIndex]);
     }
 
+    public void EndLevel()
+    {
+        onLevelComplete?.Invoke();
+    }
+
     public void LoadNextLevel()
     {
         currentLevelIndex++;
-        if (currentLevelIndex >= levels.Count) return;
+        if (currentLevelIndex >= levels.Count)
+        {
+            currentLevelIndex = -1;
+            SceneManager.LoadScene("MainMenu");
+        };
         
         string nextLevel = levels[currentLevelIndex];
         LoadLevel(nextLevel);
@@ -58,10 +67,7 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        if (timerActive)
-        {
-            timer += Time.deltaTime;
-        }
+        timer += Time.deltaTime;
         
         if(currentLevelIndex == -1) return;
         
