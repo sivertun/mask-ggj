@@ -13,8 +13,10 @@ public class LevelManager : MonoBehaviour
     [SerializeField] List<string> levels = new List<string>();
     
     private InputAction restartAction;
-    
+
     private float timer = 0f;
+        
+    private bool levelCompleted = false;
     
     public event Action onLevelComplete;
 
@@ -39,16 +41,19 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene(levelName);
         timer = 0f;
+        levelCompleted = false;
     }
 
     public void RestartLevel()
     {
+        if (levelCompleted) return;
         if (currentLevelIndex == -1) return;
         LoadLevel(levels[currentLevelIndex]);
     }
 
     public void EndLevel()
     {
+        levelCompleted = true;
         onLevelComplete?.Invoke();
     }
 
