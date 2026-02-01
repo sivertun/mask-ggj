@@ -194,6 +194,7 @@ MonoBehaviour:
   minThrowForce: 5
   maxThrowForce: 20
   chargeTime: 1.5
+  deceleration: 2
   trajectoryLine: {fileID: 1276009743995547949}
   trajectoryPoints: 15
   maxPreviewTime: 0.4
@@ -486,7 +487,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
