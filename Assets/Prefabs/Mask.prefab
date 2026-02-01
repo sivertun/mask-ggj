@@ -80,7 +80,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 11
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 22cde931784913147aa25b52ae6a4c7d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -243,8 +243,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2819e625fcf181c42b6482c6b3df21e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  walkSpeed: 10
-  runSpeed: 15
+  deceleration: 100
+  maxWalkSpeed: 10
+  maxRunSpeed: 18
+  boostCutoff: 3
+  walkAcceleration: 50
+  runAcceleration: 80
   jumpPower: 15
   jumpPowerCuttingRateUponRelease: 0.7
   groundCheckDistance: 1
@@ -253,6 +257,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
+  originalMaterial: {fileID: 0}
+  zeroFrictionMaterial: {fileID: 0}
   currentlyControlledNPC: {fileID: 0}
 --- !u!114 &7322698544023455397
 MonoBehaviour:
