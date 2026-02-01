@@ -17,6 +17,7 @@ public class MaskMovement : MonoBehaviour
     bool isAttached = true;
     public event Action<bool> OnAttachmentChanged; 
     public bool CanBeCaught => !isAttached;
+    bool restarted = false;
 
     private Collider2D maskCollider;
     private Collider2D parentCollider;
@@ -26,6 +27,7 @@ public class MaskMovement : MonoBehaviour
 
     [SerializeField] private float maxThrowForce = 15f;
     [SerializeField] private float chargeTime = 1.5f;
+    [SerializeField] private float deceleration = 2f;
 
     private float currentCharge;
     private bool isCharging;
@@ -178,5 +180,28 @@ public class MaskMovement : MonoBehaviour
             trajectoryLine.SetPosition(i, point);
         }
     }
+
+    void OnCollisionStay2D(Collision2D collision)
+{
+    if (!CanBeCaught)
+        return;
+
+    ContactPoint2D contact = collision.contacts[0];
+    Vector2 normal = contact.normal;
+
+    if (normal.y > 0.5f)
+    {
+        if (rb.linearVelocityX > 0)
+            rb.linearVelocityX = Mathf.Max(rb.linearVelocityX - deceleration * Time.fixedDeltaTime, 0);
+        else if (rb.linearVelocityX < 0)
+            rb.linearVelocityX = Mathf.Min(rb.linearVelocityX + deceleration * Time.fixedDeltaTime, 0);
+
+        if (rb.linearVelocityX == 0 && !restarted)
+        {
+            LevelManager.Instance.RestartLevel();
+            restarted = true;
+        }
+    }
+}
 
 }
