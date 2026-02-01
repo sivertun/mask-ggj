@@ -7,10 +7,12 @@ public class FlyingNPCMovement : NPCMovement
 	private Vector2 startPosition;
 	private Rigidbody2D rb;
 	private bool neverMoveAgain = false;
+	private float ogGravityScale;
 
 	public void Start() {
 		rb = GetComponent<Rigidbody2D>();
 		startPosition = rb.position;
+		ogGravityScale = rb.gravityScale;
 		rb.gravityScale = 0;
 	}
 
@@ -29,7 +31,7 @@ public class FlyingNPCMovement : NPCMovement
 			rb.gravityScale = 0;
 			rb.linearVelocity = npcVelocity;
 		} else {
-			rb.gravityScale = 4;
+			rb.gravityScale = ogGravityScale;
 			neverMoveAgain = true;
 		}
 	}

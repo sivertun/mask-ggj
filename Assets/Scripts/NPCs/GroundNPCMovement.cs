@@ -9,27 +9,50 @@ public class GroundNPCMovement : NPCMovement
 	private float startX;
 	private float leftTurnX;
 	private float rightTurnX;
+
+	private Animator animator;
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
+		animator = GetComponent<Animator>();
+		animator.SetBool("isWalking", true);
 		startX = rb.position.x;
 		leftTurnX = startX - leftRange;
 		rightTurnX = startX + rightRange;
 	}
 	void FixedUpdate()
 	{
+		if(!doMove) {
+			return;
+		}
 		float currentX = rb.position.x;
 		if(
 			// To the left and moving left
-			// or
-			// to the right and moving right 
 			(npcVelocity < 0 && currentX <= leftTurnX) ||
+			// to the right and moving right 
 			(npcVelocity > 0 && currentX >= rightTurnX)
 		) {
 			npcVelocity = -npcVelocity;
+
 		}
-		if(doMove) {
-			rb.linearVelocityX = npcVelocity;
+		if(npcVelocity <= 0) {
+			FaceLeft();
+		} else {
+			FaceRight();
 		}
+		rb.linearVelocityX = npcVelocity;
 	}
+    void FaceRight()
+    {
+    	Vector3 scale = transform.localScale;
+    	scale.x = Mathf.Abs(scale.x);
+    	transform.localScale = scale;
+    }
+
+    void FaceLeft()
+    {
+	Vector3 scale = transform.localScale;
+    	scale.x = -Mathf.Abs(scale.x);
+    	transform.localScale = scale;
+    }
 }
