@@ -1,11 +1,12 @@
 using UnityEngine;
 
-public class FlyingNPCMovement : MonoBehaviour
+public class FlyingNPCMovement : NPCMovement
 {
 	[SerializeField] private int range;
 	[SerializeField] private Vector2 npcVelocity;
 	private Vector2 startPosition;
 	private Rigidbody2D rb;
+	private bool neverMoveAgain = false;
 
 	public void Start() {
 		rb = GetComponent<Rigidbody2D>();
@@ -24,6 +25,12 @@ public class FlyingNPCMovement : MonoBehaviour
 		) {
 			npcVelocity = -npcVelocity;
 		}
-		rb.linearVelocity = npcVelocity;
+		if(doMove && !neverMoveAgain) {
+			rb.gravityScale = 0;
+			rb.linearVelocity = npcVelocity;
+		} else {
+			rb.gravityScale = 4;
+			neverMoveAgain = true;
+		}
 	}
 }

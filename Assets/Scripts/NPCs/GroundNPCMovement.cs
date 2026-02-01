@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NPCMovement : MonoBehaviour
+public class GroundNPCMovement : NPCMovement
 {
 	[SerializeField] private float leftRange;
 	[SerializeField] private float rightRange;
@@ -28,7 +28,8 @@ public class NPCMovement : MonoBehaviour
 		) {
 			npcVelocity = -npcVelocity;
 		}
-		rb.linearVelocityX = npcVelocity;
+		if(doMove) {
+			rb.linearVelocityX = npcVelocity;
+		}
 	}
-
 }

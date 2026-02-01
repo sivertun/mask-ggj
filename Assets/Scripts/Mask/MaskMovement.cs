@@ -61,6 +61,11 @@ public class MaskMovement : MonoBehaviour
         transform.SetParent(null);
         rb.simulated = true;
         rb.linearVelocity = velocity;
+
+	NPCMovement npcMovementScript = parent.GetComponent<NPCMovement>();
+	if(npcMovementScript) {
+		npcMovementScript.startMovement();
+	}
     }
 
     public void Catch(GameObject parent, Transform attachpoint)
