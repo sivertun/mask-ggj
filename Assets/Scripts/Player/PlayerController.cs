@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private InputAction moveAction;
     private InputAction jumpAction;
     private InputAction runAction;
+    private InputAction restartAction;
 
     private Vector2 horizontalInput = Vector2.zero;
     private bool jumpOnNextOpportunity = false;
@@ -81,6 +82,7 @@ public class PlayerController : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
         runAction = InputSystem.actions.FindAction("Sprint");
+        restartAction = InputSystem.actions.FindAction("Restart");
         groundLayer = LayerMask.GetMask("Ground");
 
         if (currentlyControlledNPC)
@@ -99,6 +101,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (restartAction.ReadValue<float>() > 0)
+        {
+            LevelManager.Instance.RestartLevel();
+            return;
+        }
+
         if (currentlyControlledNPC is null) return;
         horizontalInput = moveAction.ReadValue<Vector2>();
         bool holdingJump = jumpAction.ReadValue<float>() > 0 ? true : false;
